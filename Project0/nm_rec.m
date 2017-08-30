@@ -14,7 +14,7 @@ function [ xn ] = nm_rec( f, fp, x, tot)
 
   % If stopping critera not met, recurisivly call nm_rec on xn
   if xn > 0 && abs(chi) > tot
-    nm_rec(f,fp,xn,tot);
+    xn = nm_rec(f,fp,xn,tot);
   else
     return;
 
