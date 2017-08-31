@@ -52,8 +52,8 @@ t = 1 ./ (1 - x);
 end
 
 function t = actual_g(x)
-
-t = 1/4 * x.^3 + 1;
+% Solve for actual value solution
+t = 1/4 * x.^3 + 1; % Wrong
 
 end
 
