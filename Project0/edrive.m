@@ -5,7 +5,8 @@
 function edrive()
 
 a = 0; b = 1; c = 1;
-f = @(x,y) y;
+f = @(x,y) y^2;
+g = @(x,y) y^4;
 
 figure
 hold on;
@@ -21,11 +22,18 @@ end
 
 x10 = linspace(0,1,11)';
 
-plot(x10, actual(x10),'color', 'red*');
+plot(x10, actual_f(x10),'color', 'red');
+plot(x10, actual_g(x10),'color', 'red');
 
 end
 
-function t = actual(x)
+function t = actual_f(x)
+
+t = exp(x);
+
+end
+
+function t = actual_g(x)
 
 t = exp(x);
 

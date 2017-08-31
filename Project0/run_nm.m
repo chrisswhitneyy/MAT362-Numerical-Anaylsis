@@ -2,7 +2,7 @@ clear; close all;
 
 f = @(x) x^2 - x^4;
 fp = @(x) 2*x - 4*x^3;
-tot = 1e-10;
+tot = 1e-75;
 x0_1 = 2;
 x0_2 = 1/4;
 
