@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{listings}
+\usepackage{amsmath}
 
 \begin{document}
 
@@ -12,16 +13,30 @@
 
 In the following report we shall outline and describe the algorithms used, their relative theory and the techniques used to implement them in Matlab. The problems this project deals with is the numerical approximate of integrals, solving initial value problems, first and second derivatives and finding zeros values. 
 
-\section{Midpoint Rule}
+\section{Riemann Sum using Midpoint Rule}
+The problem for finding the area under the curve can be solved by using a technique known as a Riemann sum where you create rectangles on the function to approximate the area. The more rectangles one uses the closer the approximation. For this problem a function was implemented that calculates this sum. Works by creating a grid finds the midpoints of this grid dependent on the number of triangles $n$ then evaluates and sums the result. The following is the result after running this technique on two functions with different $n's$. 
 
+\input{result1.tex}
+
+The actual integral of these functions $f(x)=x^2$,$g(x) = x^4$ is $1/2$ and $1/4$ respectively. So we can see as $n$ increase the error on the approximation decreases.  
 \section{Euler's Method}
 
 \section{Newtons Method}
-Newtons method uses equation of the tangent line to find when a given equation equals zero. To implement this method we used two different approach, the first is a sequential approach where a while loop is used to recalculate $X$ until the stop criteria is met, the second approach uses a recursive function to calculate and re-calculate $x$ until a base-case (stopping criteria) is met. Though the recursive solution is more allegiant does have some serious draw backs such as reaching maximum recursive depth. The following are the results after running the script. 
+Newtons method uses the equation of the tangent line to find when a given equation equals zero given a function $f$, that functions derivative $f'$, a tolerance threshold $tot$ and an initial guess $x_0$. Below is the tangent line which is the starting point for the derivation of this method. 
+
+	$ y = f'(x_n)(x - x_n) + f(x_n)$
+
+If we then set $y$ equal to zero and solving for the next value of $x$ we are able to obtain the following equation which is then iterated on until a stoping criteria is met to find zeros.
+
+	$ x_{n+1} = x_n - f(x_n) / f'(x_n) $
+
+To implement this method we used two different approach, the first is a sequential approach where a while loop is used to recalculate $x_{n+1}$ until the stop criteria is met, the second approach uses a recursive function to calculate and re-calculate $x_{n+1}$ until a base-case (stopping criteria) is met. Though the recursive solution is more allegiant it have does have some serious draw backs. One of these draw backs is when the tolerance variable is extremely low it will hit reaching maximum recursive depth meaning the program has run out of memory. Even with this limitation the two implementation do return the same results. 
+
+The following are the results after running the script with both approaches and with both initial guess. 
 
 \input{result4}
 
-It is easy to see that in both approaches that $x_0 = 2$ coverages quicker. 
+It is easy to see that in both approaches that $x_0 = 2$ coverages quicker, however, it it finds the $1$ zeros while $x_0 = 1/4$ looks like it approaches $0$ the other zero. 
 
 \section{First and Second Derivative}
 
