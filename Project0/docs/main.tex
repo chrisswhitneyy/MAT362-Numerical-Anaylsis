@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{listings}
 \usepackage{amsmath}
+\usepackage{graphicx}
 
 \begin{document}
 
@@ -11,18 +12,29 @@
 
 \section{Introduction}
 
-In the following report we shall outline and describe the algorithms used, their relative theory and the techniques used to implement them in Matlab. The problems this project deals with is the numerical approximate of integrals, solving initial value problems, first and second derivatives and finding zeros values. 
+In the following report we shall outline and describe the algorithms used, their relative theory and the techniques used to implement them in Matlab. The problems this project deals with are the numerical approximation of integrals, solving initial value problems with differential equations, first and second derivatives and finding zero values of equations. 
 
 \section{Riemann Sum using Midpoint Rule}
-The problem for finding the area under the curve can be solved by using a technique known as a Riemann sum where you create rectangles on the function to approximate the area. The more rectangles one uses the closer the approximation. For this problem a function was implemented that calculates this sum. Works by creating a grid finds the midpoints of this grid dependent on the number of triangles $n$ then evaluates and sums the result. The following is the result after running this technique on two functions with different $n's$. 
+The problem of finding the area under the curve can be solved by using a technique known as a Riemann sum where you create rectangles on the function to approximate the area. The more rectangles one uses the closer the approximation. For this problem a function was implemented that calculates this sum. It works by creating a grid finds the midpoints of this grid dependent on the number of triangles $n$ then evaluates and sums the result. The following is the result after running this technique on two functions with different $n's$. 
 
 \input{result1.tex}
 
-The actual integral of these functions $f(x)=x^2$,$g(x) = x^4$ is $1/2$ and $1/4$ respectively. So we can see as $n$ increase the error on the approximation decreases.  
+The actual integral of these functions $f(x)=x^2$,$g(x) = x^4$ is $1/2$ and $1/4$ respectively. So we can see as $n$ increase the error on the approximation decreases. 
+
 \section{Euler's Method}
+When solving a differential equation it can be extremely hard and sometimes even impossible to find an exact solution. In this case one can use Euler's method to approximate the solution. This method uses the tangent line to solve for the next $x$ value and then repeats that process for a given number of iterations $n$. 
+
+The following is the result after running this method of two functions.
+
+\includegraphics[height=6cm]{problem2_f}\\
+Figure: Shown in blue is the approximate solution to the differential equation $y' = y^2$ using Euler estimations method with different $n's$ of 10, 20, 40, 80, and 160. Shown in red is the actual solution for the equation.
+
+\includegraphics[height=6cm]{problem2_g}\\
+Figure: Shown in blue is the approximate solution to the differential equation $y' = y^4$ using Euler method with different $n's$ of 10, 20, 40, 80, and 160. Shown in red is the actual solution for the equation.
+
 
 \section{Newtons Method}
-Newtons method uses the equation of the tangent line to find when a given equation equals zero given a function $f$, that functions derivative $f'$, a tolerance threshold $tot$ and an initial guess $x_0$. Below is the tangent line which is the starting point for the derivation of this method. 
+Newtons method uses the equation of the tangent line to find when a given equation equals zero. Below is the tangent line which is the starting point for the derivation of this method. 
 
 	$ y = f'(x_n)(x - x_n) + f(x_n)$
 
@@ -30,15 +42,32 @@ If we then set $y$ equal to zero and solving for the next value of $x$ we are ab
 
 	$ x_{n+1} = x_n - f(x_n) / f'(x_n) $
 
-To implement this method we used two different approach, the first is a sequential approach where a while loop is used to recalculate $x_{n+1}$ until the stop criteria is met, the second approach uses a recursive function to calculate and re-calculate $x_{n+1}$ until a base-case (stopping criteria) is met. Though the recursive solution is more allegiant it have does have some serious draw backs. One of these draw backs is when the tolerance variable is extremely low it will hit reaching maximum recursive depth meaning the program has run out of memory. Even with this limitation the two implementation do return the same results. 
+To implement this method we used two different approaches, the first is a sequential approach where a while loop is used to recalculate $x_{n+1}$ until the stop criteria is met, the second approach uses a recursive function to calculate and re-calculate $x_{n+1}$ until a base-case (stopping criteria) is met. Though the recursive solution is more elegant it does have some serious draw backs. One of these draw backs is when the tolerance variable is extremely low it will hit maximum recursive depth meaning the program has run out of memory. Even with this limitation the two implementations do return the same results. 
 
-The following are the results after running the script with both approaches and with both initial guess. 
+The following are the results after running the script with both approaches and with both initial guesses. 
 
 \input{result4}
 
-It is easy to see that in both approaches that $x_0 = 2$ coverages quicker, however, it it finds the $1$ zeros while $x_0 = 1/4$ looks like it approaches $0$ the other zero. 
+It is easy to see that in both approaches that $x_0 = 2$ converges quicker, however, it it finds the $1$ zeros while $x_0 = 1/4$ looks like it approaches $0$ the other zero. 
 
 \section{First and Second Derivative}
+The problem of finding the first and second derivative of an equation can be sometimes extremely hard by hand. For this problem it is possible to approximate the solution using matrix multiplication. This is accomplished by looking at the individual changes in $f(x)$ over time. This calculation can be accomplished by using a sparse matrix with -1 on the diagonal and 1 on the diagonal above that  and then multiple that matrix by values of the function. 
 
+The following are the results of running this method on two functions $f(x) = x^2$ and $g(x) = x^4$. We this also compare the exact first and second derivatives to see how close the approximation is. 
+
+\includegraphics[height=6cm]{f_fp}\\
+Figure : First derivative of $f$ is shown with the blue line is the approximation and the red line is the exact derivative. 
+
+\includegraphics[height=6cm]{f_fpp}\\
+Figure : Second derivative of $f$ is shown with the blue line is the approximation and the red line is the exact derivative. 
+
+\includegraphics[height=6cm]{g_fp}\\
+Figure : First derivative of $g$ is shown with the blue line is the approximation and the red line is the exact derivative. 
+
+\includegraphics[height=6cm]{g_fpp}\\
+Figure : Second derivative of $g$ is shown with the blue line is the approximation and the red line is the exact derivative. 
+
+
+We can see from these figures that the approximation for the first and second derivative for both functions lay exactly on the actual derivative. 
 
 \end{document}
