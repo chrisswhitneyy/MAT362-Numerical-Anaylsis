@@ -1,4 +1,4 @@
-function [ xn ] = nm_rec( f, fp, x, tot)
+function [ xn ] = newtons( f, fp, x, tot)
 % function: Netwons method for finding zero values given f, f',
 % x and tollerance thershold. It recurisivly calls itself on the
 % new x until the stoping critera or base-case are met.
@@ -10,11 +10,13 @@ function [ xn ] = nm_rec( f, fp, x, tot)
   xn = x - chi; % Newtons method
 
   % Disp values
-  disp(['chi=' num2str(chi) ' xn = ' num2str(xn)]);
+  % Disp values
+  disp( num2str(xn) );
+  fflush(stdout); % Octave specfic command to flush the output
 
   % If stopping critera not met, recurisivly call nm_rec on xn
   if xn > 0 && abs(chi) > tot
-    xn = nm_rec(f,fp,xn,tot);
+    xn = newtons(f,fp,xn,tot);
   else
     return;
 
