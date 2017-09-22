@@ -15,9 +15,9 @@ Within this project we aim to solve two problems (1) is finding the zeros or roo
 
 The first method to find zeros is the secant method which is derived from the formula of the secant line. The algorithm works similar to Newtons method, however, it approximates the derivative of the function instead of having it given as a parameter. This also illustrates on of the pros of this method is that it doesn't require one to know the derivative. 
 
-The second method implemented to find zeros is the bisection method which works by evaluating the function at two points and then reassigning this bounds based on which evaluation is closer to zero. As with secant method this method does not require one to know the derivative of the function, however, unlike with the secant method it coverage much slower since the steps the bounds take are much larger. 
+The second method implemented to find zeros is the bisection method which works by evaluating the function at two points and then reassigning this bounds based on which evaluation is closer to zero. As with secant method this method does not require one to know the derivative of the function, however, unlike with the secant method it convergence much slower since the steps the bounds take are much larger. 
 
-The final method that was implemented was the Newtons method which works by repeatedly evaluating the function based on a initial guess and then incremented this guess by the function divided by its derivatives. One of the pro's of this function is that coverage fast, however it does require the knowledge of the derivative before starting. 
+The final method that was implemented was the Newtons method which works by repeatedly evaluating the function based on a initial guess and then increment it a new value based on it's derivative. One of the pro's of this function is that convergences fast, however it does require the knowledge of the derivative before starting. 
 
 \section*{Part A}
 
@@ -41,7 +41,40 @@ Figure 3: Shown is function 1 plotted on the interval from [-10,10].\\
 The following is the Matlab output after running each method on each function. 
 \input{result1a}
 
+The following is the tables containing the absolute and relative errors. \\
+
+Newtons simple root $f_1$ \\
+\begin{tabular}{ l | l | l }
+	Iteration & Absolute Error & Relative Error  \\
+	\hline
+	1 & 0.0972 & 0.043468539 \\
+	2 & 0.0053 & 0.002370198 \\
+	3 & 1E-04 & 4.47207E-05 \\
+\end{tabular}\\\\\\
+
+Secant two roots $f_2$ \\
+\begin{tabular}{ l | l | l }
+	Iteration & Absolute Error & Relative Error  \\
+	\hline
+	1 & 4.8 & 12 \\	2 & 1.2 & 3 \\	3 & 0.96 & 2.4 \\
+ 	\vdots &  \vdots & \vdots  \\
+	29 & 1E-05 & 2.5E-05 \\
+\end{tabular}\\\\\\
+
+Bisection two roots $f_2$ \\
+\begin{tabular}{ l | l | l }
+	Iteration & Absolute Error & Relative Error  \\
+	\hline
+	1 & 3.1	& 0.565225169 \\
+	2 & 3.0139 & 1.347837753 \\
+	3 & 3.8889 & 1.739144045 \\
+ 	\vdots &  \vdots & \vdots  \\
+	39 & 4.7639 & 2.130450338 \\
+\end{tabular}\\\\\\
 
 \section*{Part B}
+Using a $n=50$ the following image was generated to visualize the roots for $f(z) = z^3 - 1$. \\
+
+\includegraphics[height=8cm]{problem2.png}
 
 \end{document}
