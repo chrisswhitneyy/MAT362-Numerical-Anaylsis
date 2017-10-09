@@ -19,5 +19,6 @@ function [ xn ] = newtons( f, fp, x, tot)
     xn = newtons(f,fp,xn,tot);
   else
     return;
+  end
 
 end  % function

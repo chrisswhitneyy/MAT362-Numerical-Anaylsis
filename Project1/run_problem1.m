@@ -25,15 +25,19 @@ p0 = 1; p1 = 2; % Intial guesses
 xn_sec = secant(f1,p0, p1, tot, n0);
 disp('f1 Bisection');
 a =0; b = 7; % Intial bounds
-xn_bis = bisection(f1,a,b,tot,n0);
+xn_bis = bisection_rec(f1,a,b,tot,n0);
+xn_bis_1 = bisection(f1,a,b,tot,n0);
 disp('f1 Newtons');
 x0 = 4; % Intial guess
 xn_new = newtons(f1,fp1,x0,tot);
 
 disp('-- f1 --');
-disp(['Bisection : Xn ' num2str(xn_bis)]);
+disp(['Bisection Rec : Xn ' num2str(xn_bis)]);
+disp(['Bisection : Xn ' num2str(xn_bis_1)]);
 disp(['Secant : Xn ' num2str(xn_sec)]);
 disp(['Newtons : Xn ' num2str(xn_new)]);
+
+break;
 
 % f2 -- Run methods
 disp('f2 Secant');
