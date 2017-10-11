@@ -5,76 +5,63 @@
 
 \begin{document}
 
-\title{MAT362 - Project1 Report}
+\title{MAT362 - Project2 Report}
 \author{Christopher D. Whitney}
 
 \maketitle
 
 \section*{Introduction}
-Within this project we aim to solve two problems (1) is finding the zeros or roots of functions and (2) is the problem of visualizing the Newtons method with roots that are complex. For the first problem three different methods are implemented each with there pro's and con's. 
+The goals of this project are (1) implement and test multiple tridiagonal solvers, (2) apply them to a cubic splines, (3) to experiment with these solvers to discretize the second derivative operator matrix and finally to approximate the eigenvalues of the second derivative matrix and compare them to exact values. 
 
-The first method to find zeros is the secant method which is derived from the formula of the secant line. The algorithm works similar to Newtons method, however, it approximates the derivative of the function instead of having it given as a parameter. This also illustrates on of the pros of this method is that it doesn't require one to know the derivative. 
+\section*{Overview of Algorithms}
+In the following section we will outline and describe the algorithms used to implemented this project. 
 
-The second method implemented to find zeros is the bisection method which works by evaluating the function at two points and then reassigning this bounds based on which evaluation is closer to zero. As with secant method this method does not require one to know the derivative of the function, however, unlike with the secant method it convergence much slower since the steps the bounds take are much larger. 
+\subsection*{Direct Method to Solve Trigonal Systems}
+The first algorithm implemented for this project is a direct approach to solve tridiagonal systems using Gaussian elimination. It works by the first zeroing out lower diagonal. This is accomplished by iterating over the diagonal matrix and modifying the main and upper diagonal such that the lower will be zero. We do not actually need to change the lower, instead we just treat it as if it has been zeroed out. The second step is start to solve for the $x$'s this is accomplished by first solving for $x_n$ then threw back substitution solve the reset. This algorithm is know as a direct method because it it has a finite number of step unlike an iterative method which will be discussed in the next section. 
 
-The final method that was implemented was the Newtons method which works by repeatedly evaluating the function based on a initial guess and then increment it a new value based on it's derivative. One of the pro's of this function is that convergences fast, however it does require the knowledge of the derivative before starting. 
+\subsection*{Iterative Method to Solve Trigonal Systems}
+The second algorithm that was implemented for this project for the tridiagonal solver known as the Gauss Seidel which iteratively updates values of $x$ until a stoping criteria is meet. It updates the new $x$ based on some initial guess usually zero, the lower diagonal, the $b$ matrix and the lower matrix. The iterative formula goes as follows, 
 
-\section*{Part A}
+$$ x_{i+1} = \frac{b - U*x_i}{L_i}$$ 
 
-For this problem will run secant, bisection, and Newton's method for finding zeros on the following functions. 
-\begin{enumerate}
-	\item $ f_1 (x) = x^2 - 5$
-	\item $ f_2 (x) = (x - \frac{2}{5	} ) ^ 2 $
-	\item $ f_3 (x) = 3e^{cos(2x) - log(x)} - 1 $
-\end{enumerate}
+Where $x_i$ is the current $x$ value $b$ is the matrix containing the right hand sides of the system, $U$ is the upper diagonal, $L$ is the lower diagonal and $x_{i+1}$ is the next $x$ value. 
+
+The algorithm terminates when a certain amount of iterations has been met or when the $x_i$ and $x_{i+1}$ are with a tolerance of each-other. 
+
+\section*{Problem 1}
+
+\subsection*{Part A}
+After implementing the direct method of trigonal solver using the algorithm described above we tested it on two systems. One is a much smaller system and the second is a little bit larger. In both cases the systems exact solutions were known. The following is the results. \\
+
+\textbf{System 1}\\  
+$$ x + y = 3 $$  
+$$ 2x+y = 4 $$ 
+Where the exact solutions are $x=1$ and $y=1$. After running the solver to approximate the solutions we also obtained $x=1$ and $y=1$. We can see with this system the solver is able to calculate the exact solution.  \\
+
+\textbf{System 2}\\
+$$ x + y = 4$$ 
+$$ x+y+z=3$$ 
+$$y+z=2$$
+Where the one possible exact solution is $x=1$, $y=3$, and $z=-1$. Using the direct method we obtain the approximations of 
+ $x=4$,$y=-3$,$z=2$ which are solutions to the system however the are not the exact same as our original solutions. We can see that $y$ has a sign difference and $x$ and $z$ are completely different. 
+
+\subsection*{Part B}
+For this section of the project we implemented an arbitrary larger tridiagonal system and used the built in MatLab operation $mldivide$ to solve the system. We determined threw online MatLab documentation that if the matrix is square, sprases and triangular then the MatLab operation uses the diagonal solver. Since, are system fits both those criteria we believe the operation used that algorithm.  
+
+\section*{Problem 2}
+For this section of the project we implement the Gauss Sidel solver which is an iterative solve described above and used it to solve same system as in problem 1 part a. For the first system the method was unable to come up a solution that was a small numbers, and for the second system the algorithm was able to come up with an exact solution. One can run source code for exact values. 
+
+\section*{Problem 3}
+
+\section*{Problem 4}
+
+\subsection*{Part A}
+
+\subsection*{Part B}
+
+\subsection*{Part C}
 
 
-The following are the three functions plot on the interval from [-10,10], this was do to visually see where the zeros exists. This will help to make appropriate guess.\\
-
-\includegraphics[height=8cm]{f1.png}\\
-Figure 1: Shown is function 1 plotted on the interval from [-10,10].\\
-\includegraphics[height=8cm]{f2.png}\\
-Figure 2: Shown is function 1 plotted on the interval from [-10,10].\\
-\includegraphics[height=8cm]{f3.png}\\
-Figure 3: Shown is function 1 plotted on the interval from [-10,10].\\
-
-The following is the Matlab output after running each method on each function. 
-\input{result1a}
-
-The following is the tables containing the absolute and relative errors. \\
-
-Newtons simple root $f_1$ \\
-\begin{tabular}{ l | l | l }
-	Iteration & Absolute Error & Relative Error  \\
-	\hline
-	1 & 0.0972 & 0.043468539 \\
-	2 & 0.0053 & 0.002370198 \\
-	3 & 1E-04 & 4.47207E-05 \\
-\end{tabular}\\\\\\
-
-Secant two roots $f_2$ \\
-\begin{tabular}{ l | l | l }
-	Iteration & Absolute Error & Relative Error  \\
-	\hline
-	1 & 4.8 & 12 \\	2 & 1.2 & 3 \\	3 & 0.96 & 2.4 \\
- 	\vdots &  \vdots & \vdots  \\
-	29 & 1E-05 & 2.5E-05 \\
-\end{tabular}\\\\\\
-
-Bisection two roots $f_2$ \\
-\begin{tabular}{ l | l | l }
-	Iteration & Absolute Error & Relative Error  \\
-	\hline
-	1 & 3.1	& 0.565225169 \\
-	2 & 3.0139 & 1.347837753 \\
-	3 & 3.8889 & 1.739144045 \\
- 	\vdots &  \vdots & \vdots  \\
-	39 & 4.7639 & 2.130450338 \\
-\end{tabular}\\\\\\
-
-\section*{Part B}
-Using a $n=50$ the following image was generated to visualize the roots for $f(z) = z^3 - 1$. \\
-
-\includegraphics[height=8cm]{problem2.png}
+\section*{Problem 5}
 
 \end{document}

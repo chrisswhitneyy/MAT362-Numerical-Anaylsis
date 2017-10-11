@@ -5,13 +5,14 @@ function [ x ]  = tridigagonal_solver( L, D, U, b )
 %   2. Solve for Xn
 %   3. Back subsitute to solve all other x's
 %
-% Extended description:
-% It takes the four matrixes a parameter with size m x 1
-%   L : A lower digagonal matrix
-%   D : A lead digagonal matrix
-%   U : A upper digagonal matrix
-%   b : A matrix containg the equalitity values (e.g. Ax = b )
-
+% Input:
+%   L = A lower digagonal matrix
+%   D = A lead digagonal matrix
+%   U = A upper digagonal matrix
+%   b = right hand side vector (e.g. Ax = b )
+%
+% Output:
+%   x = solutions
 
   n = numel(D);
 
@@ -27,7 +28,7 @@ function [ x ]  = tridigagonal_solver( L, D, U, b )
 
   % 3. Back subsitute
   for i = n - 1: -1  : 1
-    x(i) = ( b(i) - U(i) * x(i+1) ) / D(i);
+    x(i) = ( b(i) - (U(i) * x(i+1)) ) / D(i);
   end
 
 end  % function
