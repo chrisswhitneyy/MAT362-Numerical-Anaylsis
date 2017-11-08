@@ -14,13 +14,13 @@
 The goals of this project are (1) implement and test multiple tridiagonal solvers, (2) apply them to a cubic spline, (3) to experiment with these solvers to discretize the second derivative operator matrix and finally to approximate the eigenvalues of the second derivative matrix and compare them to exact values. 
 
 \section*{Overview of Algorithms}
-In the following section we will outline and describe the algorithms used to implemented this project. 
+In the following section we will outline and describe the algorithms used to implement this project. 
 
 \subsection*{Direct Method to Solve Trigonal Systems}
-The first algorithm implemented for this project is a direct approach to solve tridiagonal systems using Gaussian elimination. It works by the first zeroing out lower diagonal. This is accomplished by iterating over the diagonal matrix and modifying the main and upper diagonal such that the lower will be zero. We do not actually need to change the lower, instead we just treat it as if it has been zeroed out. The second step is start to solve for the $x$'s this is accomplished by first solving for $x_n$ then threw back substitution solve the reset. This algorithm is know as a direct method because it it has a finite number of step unlike an iterative method which will be discussed in the next section. 
+The first algorithm implemented for this project is a direct approach to solve tridiagonal systems using Gaussian elimination. It works by the first zeroing out the lower diagonal. This is accomplished by iterating over the diagonal matrix and modifying the main and upper diagonal such that the lower will be zero. We do not actually need to change the lower, instead we just treat it as if it has been zeroed out. The second step is to solve for the $x$'s this is accomplished by first solving for $x_n$ then threw back substitution solve the rest. This algorithm is know as a direct method because it it has a finite number of steps.
 
 \subsection*{Iterative Method to Solve Trigonal Systems}
-The second algorithm that was implemented for this project for the tridiagonal solver known as the Gauss Seidel which iteratively updates values of $x$ until a stoping criteria is meet. It updates the new $x$ based on some initial guess usually zero, the lower diagonal, the $b$ matrix and the lower matrix. The iterative formula goes as follows, 
+The second algorithm that was implemented for this project for the tridiagonal solver is known as the Gauss Seidel which iteratively updates values of $x$ until a stoping criteria is meet. It updates the new $x$ based on some initial guess usually zero, the lower diagonal, the $b$ matrix and the lower matrix. The iterative formula goes as follows, 
 
 $$ x_{i+1} = \frac{b - U*x_i}{L_i}$$ 
 
@@ -32,12 +32,12 @@ The algorithm terminates when a certain amount of iterations has been met or whe
 A cubic spline is a piece wises cubic function that fits a given set of data over a set of intervals and has the following form, 
 $$ S_j (x)=a_j +b_j(x-x_j)+c_j(x-x_j)^2 +d_j(x-x_j)^3$$
 
-The cubic spline construction algorithm thus solves for each one of these constants for each on the intervals. 
+The cubic spline construction algorithm thus solves for each one of these constants for each intervals. 
 
 \section*{Problem 1}
 
 \subsection*{Part A}
-After implementing the direct method of trigonal solver using the algorithm described above we tested it on two systems. One is a much smaller system and the second is a little bit larger. In both cases the systems exact solutions were known. The following is the results. \\
+After implementing the direct method of trigonal solver using the algorithms described above we tested it on two systems. One is a much smaller system and the second is a little bit larger. In both cases the systems exact solutions were known. The following is the results. \\
 
 \textbf{System 1}\\  
 $$ x + y = 3 $$  
@@ -55,7 +55,7 @@ Where the one possible exact solution is $x=1$, $y=3$, and $z=-1$. Using the dir
 For this section of the project we implemented an arbitrary larger tridiagonal system and used the built in MatLab operation $mldivide$ to solve the system. We determined threw online MatLab documentation that if the matrix is square, sprases and triangular then the MatLab operation uses the diagonal solver. Since, are system fits both those criteria we believe the operation used that algorithm.  
 
 \section*{Problem 2}
-For this section of the project we implement the Gauss Sidel solver which is an iterative solve described above and used it to solve same system as in problem 1 part a. For the first system the method was unable to come up a solution that was a small numbers, and for the second system the algorithm was able to come up with an exact solution. One can run source code for exact values. 
+For this section of the project we implement the Gauss Sidel solver which is an iterative solvers described above and use it to solve same system as in problem 1 part a. For the first system the method was unable to come up with a solution that was a small numbers, and for the second system the algorithm was able to come up with an exact solution. One can run source code for exact values. 
 
 \section*{Problem 3}
 After implementing the cubic spline constructor which uses a traditional solver we tested the algorithm on two data sets, the first is a arbitrary curve and the second is the duck picture from the course text.  
